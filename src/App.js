@@ -1,9 +1,14 @@
+import Home from "./pages/Home";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+
 function App() {
-  return (
-    <div className="App">
-      <button class="btn btn-primary">Button</button>
-    </div>
-  );
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Home/>}></Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
