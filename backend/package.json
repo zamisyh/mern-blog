@@ -1,0 +1,26 @@
+{
+  "name": "mern-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zamisyh/mern-blog.git"
+  },
+  "author": "Zamii",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zamisyh/mern-blog/issues"
+  },
+  "homepage": "https://github.com/zamisyh/mern-blog#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "joi": "^17.6.0"
+  },
+
+  "scripts": {
+    "dev": "node index.js"
+  }
+}
