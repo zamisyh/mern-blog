@@ -1,13 +1,17 @@
 {
-  "name": "mern-backend",
+  "name": "mern-blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zamisyh/mern-blog.git"
   },
-  "author": "Zamii",
+  "author": "Zamiiii",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zamisyh/mern-blog/issues"
@@ -18,9 +22,5 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "joi": "^17.6.0"
-  },
-
-  "scripts": {
-    "dev": "node index.js"
   }
 }
