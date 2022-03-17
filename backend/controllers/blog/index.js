@@ -35,5 +35,24 @@ const getArticleByName = async (req, res) => {
     }
 }
 
+const addArticle = async (req, res) => {
+    try {
+        await new articles({
+            name: req.body.name,
+            title: req.body.title,
+            thumbnail: req.body.thumbnail,
+            content: req.body.content
+        }).save((err, data) => {
+            (err) ? res.status(400).json(err) : res.status(200).json({
+                status: 200,
+                message: "Succesfully create article",
+                data: data
+            })
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-module.exports = { getArticle, getArticleByName };
+
+module.exports = { getArticle, getArticleByName, addArticle };
