@@ -4,7 +4,8 @@ const http = require('http');
 const link = require('./config/environment/index');
 const connect = require('./config/connection');
 //routes
-const getArticle  = require('./routers/articles');
+const getArticle = require('./routers/articles');
+const getArticleByName = require('./routers/articles');
 
 
 connect();
@@ -14,7 +15,8 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use('/api', getArticle);
+app.use('/api', getArticle, getArticleByName);
+
 
 
 app.all("*", (req, res) => {
