@@ -1,13 +1,20 @@
 const express = require('express')
 const cors = require('cors');
 const http = require('http');
-
 const link = require('./config/environment/index');
-const app = express();
+const connect = require('./config/connection');
+//routes
+const getArticle  = require('./routers/articles');
 
+
+connect();
+
+const app = express();
 app.use(express.json());
 app.use(cors());
 
+
+app.use('/api', getArticle);
 
 
 app.all("*", (req, res) => {
