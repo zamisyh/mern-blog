@@ -54,5 +54,28 @@ const addArticle = async (req, res) => {
     }
 }
 
+const updateArticle = async (req, res) => {
+    try {
+        await articles.findOneAndUpdate({ name: req.params.name }, {
+            name: req.body.name,
+            title: req.body.title,
+            thumbnail: req.body.thumbnail,
+            content: req.body.content
+        }).then((result) => {
+            res.status(200).json({
+                status: 200,
+                message: "Succesfully update article",
+            })
+        }).catch((err) => {
+            res.status(401).json({
+                status: 401,
+                message: "Failed update data!"
+            })
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-module.exports = { getArticle, getArticleByName, addArticle };
+
+module.exports = { getArticle, getArticleByName, addArticle, updateArticle };
