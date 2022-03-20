@@ -1,21 +1,28 @@
-import React from 'react'
-import articles from './ArticleContent'
-import Articles from '../components/Articles'
+import React from "react";
+import useSWR from "swr";
+import { getAllArticles } from "../api/controllers/blog";
+import { Link } from "react-router-dom";
+import Articles from "../components/Articles";
 
+const ArticleList = () => {
 
-const ArticlesList = () => {
-  return (
-    <div className='container'>
+    const { data, error } = useSWR(`${process.env.REACT_APP_API_URL}/articles`, getAllArticles);
+    if(error) return <div>failed to load</div>
+    if(!data) return <div>Loading...</div>
+
+    return(
+        <div className='container'>
         <h1 className='mb-6 text-2xl font-bold text-gray-900 sm:text-4xl'>
-            Article List
+           List Article
         </h1>
         <div className='container py-4 mx-auto'>
             <div className='flex flex-wrap m-4'>
-                <Articles articles={articles} />
+                <Articles articles={data} />
             </div>
         </div>
     </div>
-  )
+        
+    )
 }
 
-export default ArticlesList
+export default ArticleList

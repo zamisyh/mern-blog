@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
     <div>
-        <div class="navbar bg-base-100 text-white" data-theme='dark'>
-        <div class="flex-1">
-            <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <div className="text-white navbar bg-base-100" data-theme='dark'>
+        <div className="flex-1">
+            <a className="text-xl normal-case btn btn-ghost">daisyUI</a>
         </div>
-        <div class="flex-none">
-            <ul class="menu menu-horizontal p-0">
+        <div className="flex-none">
+            <ul className="p-0 menu menu-horizontal">
                 <li>
                     <Link to='/'>Home</Link>
                 </li>

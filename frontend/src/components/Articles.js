@@ -17,7 +17,7 @@ const Articles = ({articles}) => {
                             <Link key={index} to={`/article/${article.name}`}>{article.title}</Link>
                         </h2>
                     <p>
-                        {article.content[0].substring(0, 125)} ...
+                        {article.content.substring(0, 125)} ...
                     </p>
                     <div className="mt-2 mb-2 text-blue-400 text-md">
                         <Link key={index} to={`/article/${article.name}`}>Learn more...</Link>

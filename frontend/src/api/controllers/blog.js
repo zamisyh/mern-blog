@@ -2,9 +2,11 @@ import { get, post, put, del } from '../api';
 const base_url = process.env.REACT_APP_API_URL;
 
 export const getAllArticles = async (url) => {
-    return await get(url);
+    let res =  await get(url);
+    return res.data;
 }
 
 export const getArticleByName = async (url) => {
-    return await get(url);
+    let res = await get(url);
+    return res.data;
 }
