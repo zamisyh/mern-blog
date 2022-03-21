@@ -13,7 +13,7 @@ const Home = () => {
     return(
         <div className='container'>
         <h1 className='mb-6 text-2xl font-bold text-gray-900 sm:text-4xl'>
-           List Article
+           Home
         </h1>
         <div className='container py-4 mx-auto'>
             <div className='flex flex-wrap m-4'>

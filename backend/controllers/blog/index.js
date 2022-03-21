@@ -35,6 +35,18 @@ const getArticleByName = async (req, res) => {
     }
 }
 
+const otherArticle = async (req, res) => {
+    await articles.find().sort({'_id': -1}).limit(2)
+    .then((result) => {
+        res.status(200).json(result)
+    }).catch((err) => {
+        res.status(404).json({
+            status: 404,
+            message: "Invalid params name"
+        })
+    })
+}
+
 const addArticle = async (req, res) => {
     try {
         await new articles({
@@ -78,4 +90,4 @@ const updateArticle = async (req, res) => {
 }
 
 
-module.exports = { getArticle, getArticleByName, addArticle, updateArticle };
+module.exports = { getArticle, getArticleByName, addArticle, updateArticle, otherArticle };

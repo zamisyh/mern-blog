@@ -8,6 +8,7 @@ const getArticle = require('./routers/articles');
 const getArticleByName = require('./routers/articles');
 const addArticle = require('./routers/articles');
 const updateArticle = require('./routers/articles');
+const otherArticle = require('./routers/articles');
 
 
 connect();
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use('/api', getArticle, getArticleByName, addArticle, updateArticle);
+app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle);
 
 
 

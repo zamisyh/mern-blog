@@ -10,3 +10,8 @@ export const getArticleByName = async (url) => {
     let res = await get(url);
     return res.data;
 }
+
+export const getOtherArticles = async (url) => {
+    let res = await get(url);
+    return res.data;
+}

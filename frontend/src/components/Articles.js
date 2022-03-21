@@ -24,8 +24,6 @@ const Articles = ({articles}) => {
                     </div>
                     </div>
                 </div>
-
-                
             </div>
         ))}
     </>
