@@ -9,6 +9,8 @@ import NotFound from "./pages/errors/404"
 
 //Components
 import Navbar from "./components/Navbar";
+import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
           <Route exact path='/about' element={<About/>}></Route>
           <Route exact path='/articles-list' element={<ArticlesList />}></Route>
           <Route exact path='/article/:name' element={<Article/>}></Route>
+          <Route exact path='/auth/login' element={<Login/>}></Route>
+          <Route exact path='/auth/register' element={<Register/>}></Route>
         </Routes>
       </div>
     </BrowserRouter>

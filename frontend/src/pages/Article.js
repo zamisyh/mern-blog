@@ -11,8 +11,6 @@ const Article = () => {
     const {data: articleByName, error} = useSWR(`${process.env.REACT_APP_API_URL}/articles/${name}`, getArticleByName)
     const {data: otherArticles} = useSWR(`${process.env.REACT_APP_API_URL}/other-articles`, getOtherArticles);
 
-    console.log(otherArticles);
-
 
     if (error) return <div>failed to load</div>
     if (!articleByName) return <div>Loading...</div>
