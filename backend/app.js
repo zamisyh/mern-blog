@@ -3,12 +3,19 @@ const cors = require('cors');
 const http = require('http');
 const link = require('./config/environment/index');
 const connect = require('./config/connection');
+
 //routes
+//model article
 const getArticle = require('./routers/articles');
 const getArticleByName = require('./routers/articles');
 const addArticle = require('./routers/articles');
 const updateArticle = require('./routers/articles');
 const otherArticle = require('./routers/articles');
+
+//model user
+const userRegister = require('./routers/user');
+const userFindAll = require('./routers/user');
+const userFindById = require('./routers/user');
 
 
 connect();
@@ -19,6 +26,7 @@ app.use(cors());
 
 
 app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle);
+app.use('/api', userRegister, userFindAll, userFindById);
 
 
 
