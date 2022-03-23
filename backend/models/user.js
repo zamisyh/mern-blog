@@ -14,6 +14,9 @@ const userModel = new Schema({
     password: {
         type: String,
         required: [true, "Password required!"]
+    },
+    token: {
+        type: String
     }
 
 })
