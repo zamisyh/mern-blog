@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useSWR from 'swr'
 
 const Register = () => {
+
+    const addUsers = async () => {
+
+    }
+
   return (
     <>
       <div className="container">

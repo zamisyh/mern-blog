@@ -1,6 +1,7 @@
 const user = require('../../models/user');
 const { bcryptCompare, bcryptPassword } = require('../../helpers/index');
 const bcrypt = require('bcrypt');
+const asyncHandler = require('express-async-handler');
 
 const userRegister = async (req, res) => {
 
@@ -28,6 +29,22 @@ const userRegister = async (req, res) => {
         console.log(error);
     }
 }
+
+const userLogin = asyncHandler(async (req, res) => {
+    const {email, password} = req.body;
+
+    const u = await user.findOne({email})
+
+    if(u && (await bcrypt.compare(password, u.password))){
+        res.json({
+            _id: u.id,
+            name: u.name,
+            email: u.email
+        })
+    }else{
+        res.status(400).json({message: "Invalid credentials"})
+    }
+})
 
 const userFindAll = async (req, res) => {
     try {
@@ -61,4 +78,4 @@ const userFindById = async (req, res) => {
     }
 }
 
-module.exports = { userRegister, userFindAll, userFindById }
+module.exports = { userRegister, userFindAll, userFindById, userLogin }
