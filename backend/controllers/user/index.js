@@ -10,7 +10,7 @@ const userRegister = async (req, res) => {
     }
 
     try {
-        await user.findOne({email: req.body.email}, (err, data) => {
+        user.findOne({email: req.body.email}, (err, data) => {
             if(data){
                 return res.send({message: "Email already exist"})
             }else{
