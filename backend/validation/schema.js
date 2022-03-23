@@ -8,7 +8,7 @@ const register = joi.object().keys({
 });
 
 const addArticle = joi.object().keys({
-    name: joi.string().required().lowercase().regex(/^[a-z0-9-]+$/, 'must be a valid slug'),
+    name: joi.string().required().lowercase(),
     title: joi.string().required().min(4),
     thumbnail: joi.string().required(),
     content: joi.string().required()

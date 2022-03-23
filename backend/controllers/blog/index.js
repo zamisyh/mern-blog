@@ -1,5 +1,6 @@
 // const conn = require('../../config/connection');
 const env = require('../../config/environment/index');
+const { sluggable } = require('../../helpers');
 const articles = require('../../models/articles');
 
 
@@ -50,7 +51,7 @@ const otherArticle = async (req, res) => {
 const addArticle = async (req, res) => {
     try {
         await new articles({
-            name: req.body.name,
+            name: sluggable(req.body.name),
             title: req.body.title,
             thumbnail: req.body.thumbnail,
             content: req.body.content

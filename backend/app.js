@@ -3,7 +3,7 @@ const cors = require('cors');
 const http = require('http');
 const link = require('./config/environment/index');
 const connect = require('./config/connection');
-const { sluggable } = require('./helpers/index')
+
 
 //routes
 //model article
@@ -28,7 +28,7 @@ app.use(cors());
 
 app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle);
 app.use('/api', userRegister, userFindAll, userFindById);
-console.log(sluggable('testing Brother'));
+
 
 
 
