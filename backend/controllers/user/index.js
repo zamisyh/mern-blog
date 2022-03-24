@@ -67,7 +67,7 @@ const userFindAll = async (req, res) => {
 
 const userFindById = async (req, res) => {
     try {
-        await user.findById(req.body.id)
+        await user.findById(req.user.id)
             .then((result) => {
                 res.status(200).json(result)
             }).catch((err) => {
