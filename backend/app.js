@@ -17,6 +17,7 @@ const otherArticle = require('./routers/articles');
 const userRegister = require('./routers/user');
 const userFindAll = require('./routers/user');
 const userFindById = require('./routers/user');
+const userGetMe = require('./routers/user');
 
 
 connect();
@@ -27,7 +28,7 @@ app.use(cors());
 
 
 app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle);
-app.use('/api', userRegister, userFindAll, userFindById);
+app.use('/api', userRegister, userFindAll, userFindById, userGetMe);
 
 
 

@@ -16,7 +16,7 @@ const userRegister = async (req, res) => {
             if(data){
                 return res.send({message: "Email already exist"})
             }else{
-                const newUser = new user({name, email, password, token});
+                const newUser = new user({name, email, password});
                 newUser.password = bcrypt.hashSync(password, 10);
                 newUser.save((err, data) => {
                     (err) ? res.status(400).json(err) : res.status(200).json({
@@ -81,4 +81,14 @@ const userFindById = async (req, res) => {
     }
 }
 
-module.exports = { userRegister, userFindAll, userFindById, userLogin }
+const getMe = async (req, res) => {
+    await res.json({
+        isLoggedIn: true,
+        data: {
+            id: req.user.id,
+           
+        }
+    })
+}
+
+module.exports = { userRegister, userFindAll, userFindById, userLogin, getMe }
