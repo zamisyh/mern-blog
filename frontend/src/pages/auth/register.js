@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { registerUser } from '../../api/controllers/user'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Register = () => {
@@ -12,6 +15,8 @@ const Register = () => {
 //   const [password, setPassword] = useState('');
 //   const [confirmPassword, setConfirmPassword] = useState('');
 //   const history = useNavigate();
+  const [ success, setSuccess ] = useState(null);
+  const [ loading, setLoading ] = useState(false);
 
   const validationSchema = yup.object({
       name: yup.string().min(3, "Please enter your name > 3 characters").required("Name is required"),
@@ -21,8 +26,25 @@ const Register = () => {
       
   })
 
-  const onSubmit = (values) => {
-    alert(JSON.stringify(values));
+  const onSubmit = async (values) => {
+      
+    const { ...data } = values;
+    
+    setLoading(true)
+
+    await registerUser(`${process.env.REACT_APP_API_URL}/users/register`, data)
+        .then((response) => {
+            setLoading(false)
+            setSuccess(response.data.message);
+        }).catch((err) => {
+            console.log(err);
+        })
+   
+
+   
+
+   
+    
   }
 
   const formik = useFormik({
@@ -50,7 +72,7 @@ const Register = () => {
 //       }
 //   }
     
-  console.log('Error : ', formik.errors)
+//   console.log('Error : ', formik.errors)
 
   return (
     <>
@@ -59,6 +81,9 @@ const Register = () => {
                 <div className="card-body">
                     <form onSubmit={formik.handleSubmit}>
                         <span className="text-xl font-bold text-center">MERN Blog | Sign Up</span>
+                        <p className="text-green-500">
+                            {success ? success : ''}
+                        </p>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Username</span>
@@ -130,11 +155,15 @@ const Register = () => {
                         </div>
                         <span className="text-blue-500" role="button">Forgot Password ?</span>
                         <div className="mt-2 form-control">
-                            <button className="btn btn-primary">Sign Up</button>
+                            <button type="submit" className={loading ? 'btn btn-primary loading' : 'btn btn-primary'} disabled={loading}>
+                                { loading ? 'Submitting..' : 'Sign Up' }
+                            </button>
                         </div>
-                        <Link to='/auth/login' className="text-center">
-                            <span className="mt-5 text-blue-500" role="button">Already have an account ?</span>
-                    </Link>
+                       <div className="mt-3 text-center">
+                            <Link to='/auth/login' className="">
+                                <span className="mt-5 text-blue-500" role="button">Already have an account ?</span>
+                            </Link>
+                       </div>
                     </form>
                 </div>
           </div>
