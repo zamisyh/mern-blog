@@ -7,6 +7,6 @@ export const get = (name) => {
     return localStorage.getItem(name);
 }
 
-export const remove = (token) => {
-    return localStorage.removeItem(token);
+export const remove = (name) => {
+    return localStorage.removeItem(name);
 }

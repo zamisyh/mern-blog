@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { loginUser } from '../../api/controllers/user';
 import * as yup from 'yup'
 import { useFormik } from 'formik';
-import { set } from '../../helpers/localStorage';
+import { get, set } from '../../helpers/localStorage';
 
 
 const Login = () => {
   
+  let token = get('token');
+  if (token) window.location.href = '/dashboard'
+
+  let navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
-  const [ success, setSuccess ] = useState(null);
+  const [ error, setError ] = useState(null);
 
   const validationSchema = yup.object({
       email: yup.string().email().required('Email is required'),
@@ -24,13 +28,15 @@ const Login = () => {
 
     const response = await loginUser(`${process.env.REACT_APP_API_URL}/users/login`, data)
         .catch((err) => {
-            console.log('Error', err.response.data.message)
+            setError(err.response.data.message)
             setLoading(false)
         })
 
         if(response){
             set('token', response.data.token)
             setLoading(false)
+            navigate('/dashboard', {replace: true})
+                        
         }
 
        
@@ -56,6 +62,7 @@ const Login = () => {
                 <div className="card-body">
                     <form onSubmit={formik.handleSubmit}>
                         <span className="text-xl font-bold text-center">MERN Blog | Login</span>
+                        <p className="text-error">{error ? error : ''}</p>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>

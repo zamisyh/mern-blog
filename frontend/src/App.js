@@ -7,6 +7,9 @@ import Article from "./pages/Article";
 import ArticlesList from "./pages/ArticlesList";
 import NotFound from "./pages/errors/404"
 
+//admin
+import Dashboard from "./pages/admin/Dashboard";
+
 //Components
 import Navbar from "./components/Navbar";
 import Login from "./pages/auth/login";
@@ -26,6 +29,7 @@ function App() {
           <Route exact path='/article/:name' element={<Article/>}></Route>
           <Route exact path='/auth/login' element={<Login/>}></Route>
           <Route exact path='/auth/register' element={<Register/>}></Route>
+          <Route exact path='/dashboard' element={<Dashboard/>}></Route>
         </Routes>
       </div>
     </BrowserRouter>
