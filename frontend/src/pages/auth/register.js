@@ -17,7 +17,7 @@ const Register = () => {
       name: yup.string().min(3, "Please enter your name > 3 characters").required("Name is required"),
       email: yup.string().email("Please enter a valid email").required("Email is required"),
       password: yup.string().required("Password is required"),
-      confirmPassword: yup.string().oneOf([yup.ref('password')], "Password does not match").required("Confirm Password is required")
+      confirm_password: yup.string().oneOf([yup.ref('password')], "Password does not match").required("Confirm Password is required")
       
   })
 
@@ -91,7 +91,7 @@ const Register = () => {
                                 // onChange={(e) => setEmail(e.target.value)}
                                 >
                             </input>
-                            <span className="mt-1 text-error">{formik.touched.name && formik.errors.name ? formik.errors.name : ''}</span>
+                            <span className="mt-1 text-error">{formik.touched.email && formik.errors.email ? formik.errors.email : ''}</span>
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -100,7 +100,7 @@ const Register = () => {
                             <input 
                                 type="password" 
                                 name="password"
-                                className="w-full input input-bordered" 
+                                className={formik.touched.password && formik.errors.password ? 'w-full input input-bordered input-error' : 'w-full input input-bordered'} 
                                 placeholder="Input your password"
                                 value={formik.values.password}
                                 onChange={formik.handleChange}
@@ -108,6 +108,8 @@ const Register = () => {
                                 // onChange={(e) => setPassword(e.target.value)}
                                 >
                             </input>
+                            <span className="mt-1 text-error">{formik.touched.password && formik.errors.password ? formik.errors.password : ''}</span>
+
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -115,15 +117,16 @@ const Register = () => {
                             </label>
                             <input 
                                 type="password" 
-                                name="confirmPassword"
-                                className="w-full input input-bordered" 
+                                name="confirm_password"
+                                className={formik.touched.confirm_password && formik.errors.confirm_password ? 'w-full input input-bordered input-error' : 'w-full input input-bordered'} 
                                 placeholder="Input your confirm password"
-                                value={formik.values.confirmPassword}
+                                value={formik.values.confirm_password}
                                 onChange={formik.handleChange}
                                 // value={confirmPassword}
                                 // onChange={(e) => setConfirmPassword(e.target.value)}
                                 >
                             </input>
+                            <span className="mt-1 text-error">{formik.touched.confirm_password && formik.errors.confirm_password ? formik.errors.confirm_password : ''}</span>
                         </div>
                         <span className="text-blue-500" role="button">Forgot Password ?</span>
                         <div className="mt-2 form-control">
