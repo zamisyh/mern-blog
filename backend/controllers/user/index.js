@@ -91,4 +91,5 @@ const getMe = async (req, res) => {
     })
 }
 
+
 module.exports = { userRegister, userFindAll, userFindById, userLogin, getMe }

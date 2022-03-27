@@ -11,36 +11,33 @@ const Dashboard = () => {
   const getToken = get('token');
   if (getToken === null) window.location.replace('/auth/login')
 
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   
-  axios.post(`${process.env.REACT_APP_API_URL}/users/me`, 
-    {_id: "" }, {
-        headers: {
-            Authorization: 'Bearer ' + getToken
-        }
-    } ).then((res) => {
-        axios.post(`${process.env.REACT_APP_API_URL}/users/id`, 
-        {_id: res.data.data.id }, {
-            headers: {
-              Authorization: 'Bearer ' + getToken
-            }
-        }).then((res) => {
-          setUser(res.data)
-      })
-        
-  })
+  
 
-  // const { data, error } = useSWR(`${process.env.REACT_APP_API_URL}/articles`, getAllArticles)
-  // if(error) return <div>failed to load</div>
-  // if(!data) return <div>Loading...</div>
-  // console.log(data)
+  // useEffect(() => {
+  //     axios.post(`${process.env.REACT_APP_API_URL}/users/id`, 
+  //     {_id: "" }, {
+  //         headers: {
+  //           Authorization: 'Bearer ' + getToken
+  //         }
+  //     }).then((res) => {
+  //       console.log(res)
+  //     }).catch((err) => {
+  //       console.log(err)
+  //     })
+  // })
+
+  const { data, error } = useSWR(`${process.env.REACT_APP_API_URL}/articles`, getAllArticles)
+  if(error) return <div>failed to load</div>
+  if(!data) return <div>Loading...</div>
 
   return (
     <div>
-       <span className="">Name : {user.name}</span><br />
-       <span className="">Email : {user.email}</span>
+       {/* <span className="">Name : {user.name}</span><br />
+       <span className="">Email : {user.email}</span> */}
        <div>
-          <ListArticleTable />
+          <ListArticleTable articles={data} />
        </div>
     </div>
   )
