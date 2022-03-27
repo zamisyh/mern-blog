@@ -12,12 +12,14 @@ const getArticleByName = require('./routers/articles');
 const addArticle = require('./routers/articles');
 const updateArticle = require('./routers/articles');
 const otherArticle = require('./routers/articles');
+const deleteArticle = require('./routers/articles')
 
 //model user
 const userRegister = require('./routers/user');
 const userFindAll = require('./routers/user');
 const userFindById = require('./routers/user');
 const userGetMe = require('./routers/user');
+
 
 
 connect();
@@ -27,7 +29,7 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle);
+app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle);
 app.use('/api', userRegister, userFindAll, userFindById, userGetMe);
 
 

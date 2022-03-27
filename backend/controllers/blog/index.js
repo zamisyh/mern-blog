@@ -90,5 +90,18 @@ const updateArticle = async (req, res) => {
     }
 }
 
+const deleteArticle = async (req, res) => {
+    try {
+        await articles.findByIdAndDelete({_id: req.body.id})
+            .then((response) => {
+                res.send({message: "Succesfully delete articles"})
+            }).catch((err) => {
+                res.send({message: "Failed to delete "})
+            })
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-module.exports = { getArticle, getArticleByName, addArticle, updateArticle, otherArticle };
+
+module.exports = { getArticle, getArticleByName, addArticle, updateArticle, otherArticle , deleteArticle};

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express.Router();
 
-const { getArticle, getArticleByName, addArticle, updateArticle, otherArticle} = require('../controllers/blog/index');
+const { getArticle, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle} = require('../controllers/blog/index');
 const { protect } = require('../middleware/authMiddleware');
 const { addArticleList } = require('../validation/index');
 
@@ -10,5 +10,6 @@ app.get('/articles/:name', getArticleByName);
 app.post('/articles/add-article', protect, addArticleList, addArticle);
 app.put('/articles/:name/update', updateArticle);
 app.get('/other-articles', otherArticle)
+app.delete('/articles/delete', protect, deleteArticle)
 
 module.exports = app;
