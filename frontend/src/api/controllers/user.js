@@ -9,3 +9,17 @@ export const loginUser = async (url, param) => {
     let res = await post(url, param);
     return res;
 }
+
+export const getUserLogin = async (url, param, token) => {
+    let res = await post(url, param, {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+    })
+    return res.data;
+}
+
+export const getUserId = async (url, param) => {
+    let res = await post(url, param);
+    return res.data;
+}
