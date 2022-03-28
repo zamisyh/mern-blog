@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { get } from '../../helpers/localStorage';
 import axios from 'axios';
 import ListArticleTable from '../../components/admin/ListArticleTable';
@@ -37,6 +37,16 @@ const Dashboard = () => {
        {/* <span className="">Name : {user.name}</span><br />
        <span className="">Email : {user.email}</span> */}
        <div>
+          <div className="flex justify-between mb-4">
+              <div>
+                <input type="text" className="input input-bordered" placeholder="Search article ..." />
+              </div>
+              <div>
+                <Link to="/dashboard/add-article">
+                   <button className="btn btn-primary">Add Article</button>
+                </Link>
+              </div>
+          </div>
           <ListArticleTable articles={data} />
        </div>
     </div>

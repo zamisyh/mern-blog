@@ -96,7 +96,7 @@ const deleteArticle = async (req, res) => {
             .then((response) => {
                 res.send({message: "Succesfully delete articles"})
             }).catch((err) => {
-                res.send({message: "Failed to delete "})
+                res.send({message: "Failed to delete", err})
             })
     } catch (error) {
         console.log(error);

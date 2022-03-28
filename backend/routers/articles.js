@@ -10,6 +10,6 @@ app.get('/articles/:name', getArticleByName);
 app.post('/articles/add-article', protect, addArticleList, addArticle);
 app.put('/articles/:name/update', updateArticle);
 app.get('/other-articles', otherArticle)
-app.delete('/articles/delete', protect, deleteArticle)
+app.post('/articles/delete', protect, deleteArticle)
 
 module.exports = app;

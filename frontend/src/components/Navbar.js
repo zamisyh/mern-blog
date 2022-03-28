@@ -16,7 +16,10 @@ const Navbar = () => {
     <div>
         <div className="text-white navbar bg-base-100" data-theme='dark'>
         <div className="flex-1">
-            <a className="text-xl normal-case btn btn-ghost">MERN Blog</a>
+            <li className="text-xl normal-case btn btn-ghost">
+                {token && <Link to='/dashboard'>Dashboard</Link>}
+                {!token && <Link to=''>Mern Blog</Link>}
+            </li>
         </div>
         <div className="flex-none">
             <ul className="p-0 menu menu-horizontal">
