@@ -67,6 +67,7 @@ const addArticle = async (req, res) => {
     }
 }
 
+
 const updateArticle = async (req, res) => {
     try {
         await articles.findOneAndUpdate({ name: req.params.name }, {

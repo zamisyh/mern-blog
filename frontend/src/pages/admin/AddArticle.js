@@ -32,7 +32,7 @@ const AddArticle = () => {
   const onSubmit = async (values) => {
     setLoading(true)
     const { ...data } = values;
-    data.thumbnail = images[0].file.name
+    data.thumbnail =  Date.now() + '-' + Math.round(Math.random() * 1E9) + '-' + images[0].file.name
     
     await axios.post(`${process.env.REACT_APP_API_URL}/articles/add-article`, data, {
         headers: {

@@ -3,6 +3,7 @@ const cors = require('cors');
 const http = require('http');
 const link = require('./config/environment/index');
 const connect = require('./config/connection');
+const path = require('path')
 
 
 //routes
@@ -13,6 +14,7 @@ const addArticle = require('./routers/articles');
 const updateArticle = require('./routers/articles');
 const otherArticle = require('./routers/articles');
 const deleteArticle = require('./routers/articles')
+const uploadSingle = require('./routers/articles')
 
 //model user
 const userRegister = require('./routers/user');
@@ -27,10 +29,12 @@ connect();
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname)))
 
 
-app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle);
+app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle, uploadSingle);
 app.use('/api', userRegister, userFindAll, userFindById, userGetMe);
+
 
 
 

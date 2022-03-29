@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const link = require('../config/environment/index');
+const { upload } = require('../middleware/multerMiddleware');
 
 const bcryptPassword = async (pass = new String()) => {
     let hash = bcrypt.hashSync(pass, 10);
@@ -28,4 +29,9 @@ const sluggable = (str = new String()) => {
     return str;
 }
 
-module.exports = { bcryptCompare, bcryptPassword, sluggable}
+const uploadSingle = async () => {
+   return upload.single('thumbnail')
+}
+
+
+module.exports = { bcryptCompare, bcryptPassword, sluggable, uploadSingle}
