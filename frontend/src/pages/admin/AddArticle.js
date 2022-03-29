@@ -13,6 +13,7 @@ const AddArticle = () => {
 
   const [ images, setImages ] = useState([]); 
   const [ loading, setLoading ] = useState(false)
+  const [ success, setSuccess ] = useState('');
   const [ fileName, setFileName ] = useState('');
   const token = get('token')
   if (token === null) window.location.replace('/auth/login')
@@ -43,6 +44,11 @@ const AddArticle = () => {
         }
     }).then((res) => {
         data.thumbnail = res.data.filename
+        setSuccess('Succesfully create article')
+        setTimeout(() => {
+            window.location.replace('/dashboard')
+            setSuccess('')
+        }, 2000);
     }).catch((err) => {
         console.log(err)
     })
@@ -80,6 +86,13 @@ const AddArticle = () => {
 
   return (
     <div>
+ 
+        { success ? <div className="mt-2 mb-3 shadow-lg alert alert-success">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-6 h-6 text-white stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span className="text-white">{success}</span>
+            </div>
+        </div> : '' }
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
             <div className="form-control">
                 <label htmlFor="name">Name</label>
