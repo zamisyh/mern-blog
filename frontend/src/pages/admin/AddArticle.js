@@ -3,20 +3,24 @@ import { addUser } from '../../api/controllers/user'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 import ImageUploading from 'react-images-uploading'
-import { array } from 'yup/lib/locale'
+import axios from 'axios'
+import { get } from '../../helpers/localStorage'
+
+
 
 
 const AddArticle = () => {
 
-  const [ images, setImages ] = useState([]);  
-
+  const [ images, setImages ] = useState([]); 
+  const [ loading, setLoading ] = useState(false)
+  const token = get('token')
+  
   const validationSchema = yup.object({
       name: yup.string().required('Name is required'),
       title: yup.string().required('Title is required'),
       content: yup.string().required('Content is required'),
-      image: yup.string().required('Image is required')
+    //   thumbnail: yup.string().required('Image is required')
   })  
-
 
 
   const onChange = (imageList, addUpdateIndex) => {
@@ -25,9 +29,27 @@ const AddArticle = () => {
     setImages(imageList);
   };
 
-  const onSubmit = (values, images) => {
+  const onSubmit = async (values) => {
+    setLoading(true)
     const { ...data } = values;
-    console.log(data);
+    data.thumbnail = images[0].file.name
+    
+    await axios.post(`${process.env.REACT_APP_API_URL}/articles/add-article`, data, {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then((res) => {
+            console.log(res.data)
+            setLoading(false);
+        }).catch((err) => {
+            console.log(err.message)
+           setLoading(false)
+        })
+
+   
+    
+    
   }
 
   const formik = useFormik({
@@ -35,7 +57,7 @@ const AddArticle = () => {
         name: '',
         title: '',
         content: '',
-        image: ''
+        thumbnail: ''
     }, 
     validateOnBlur: true,
     onSubmit,
@@ -46,13 +68,6 @@ const AddArticle = () => {
     <div>
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
             <div className="form-control">
-                <input 
-                    type="text"
-                    name="image"
-                    value={formik.values.image = images.length > 0 ? images[0].file.name : undefined }
-                    readOnly
-                    className="input input-bordered"
-                 />
                 <label htmlFor="name">Name</label>
                 <input 
                     type="text" 
@@ -98,10 +113,11 @@ const AddArticle = () => {
             <div className="mt-4 form-control">
                 <label htmlFor="image">Image</label>
                 <ImageUploading
-                    name="image"
+                    name="thumbnail"
                     value={images}
                     onChange={onChange}
                     dataURLKey="data_url"
+                    acceptType={['jpg', 'jpeg', 'png']}
                 >
                     {({
                         imageList,
@@ -111,10 +127,11 @@ const AddArticle = () => {
                         onImageRemove,
                         isDragging,
                         dragProps,
+                        errors
                     }) => (
                     // write your building UI
                     <div className="upload__image-wrapper">
-                        <button
+                        <span
                             style={isDragging ? { color: 'red' } : undefined}
                             onClick={onImageUpload}
                             {...dragProps}
@@ -135,8 +152,8 @@ const AddArticle = () => {
                                     </span>
                                 </label>
                             </div> }
-                        </button>
-
+                        </span>
+                    
                         {imageList.map((image, index) => (
                         <div key={index}>
                             <img src={image['data_url']} alt="" width="380" />
@@ -155,13 +172,22 @@ const AddArticle = () => {
                             </div>
                         </div>
                         ))}
+
+                        <div className="mt-3 mb-3">
+                             <span className="text-error">
+                                 {errors && errors.acceptType}
+                             </span>
+                        </div>
                     </div>
+                    
                     )}
                 </ImageUploading>
             </div>
-
-            <div className="mt-4 form-control">
-                <button type="submit" className="btn btn-primary">Submit</button>
+        
+            <div className="mt-4 mb-10 form-control">
+                <button type="submit" className={loading ? 'btn btn-primary loading' : 'btn btn-primary'} disabled={loading}>
+                    { loading ? 'Loading...' : 'Submit' }
+                </button>
             </div>
 
 

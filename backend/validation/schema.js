@@ -15,8 +15,8 @@ const login = joi.object().keys({
 const addArticle = joi.object().keys({
     name: joi.string().required().lowercase(),
     title: joi.string().required().min(4),
-    thumbnail: joi.string().required(),
-    content: joi.string().required()
+    content: joi.string().required(),
+    thumbnail: joi.string().required()
 })
 
 module.exports = { register, addArticle, login }

@@ -4,6 +4,7 @@ const app = express.Router();
 const { getArticle, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle} = require('../controllers/blog/index');
 const { protect } = require('../middleware/authMiddleware');
 const { addArticleList } = require('../validation/index');
+const { upload } = require('../middleware/multerMiddleware')
 
 app.get('/articles', getArticle);
 app.get('/articles/:name', getArticleByName);

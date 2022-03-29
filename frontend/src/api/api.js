@@ -20,3 +20,9 @@ export const del = async (url, param) => {
     let result = await axios.delete(url, param);
     return result;
 }
+
+// import axios, { AxiosInstance } from "axios";
+
+// export const request: AxiosInstance = axios.create({
+//   baseURL: `${process.env.REACT_APP_URL}/api/v1`, 
+// });
