@@ -2,7 +2,9 @@
 const env = require('../../config/environment/index');
 const { sluggable } = require('../../helpers');
 const articles = require('../../models/articles');
-
+const slug = require('slug')
+const fs = require('fs')
+const path = require('path')
 
 const getArticle = async (req, res) => {
    try {
@@ -51,7 +53,7 @@ const otherArticle = async (req, res) => {
 const addArticle = async (req, res) => {
     try {
         await new articles({
-            name: sluggable(req.body.name),
+            name: slug(req.body.name),
             title: req.body.title,
             thumbnail: req.body.thumbnail,
             content: req.body.content
@@ -95,10 +97,12 @@ const deleteArticle = async (req, res) => {
     try {
         await articles.findByIdAndDelete({_id: req.body.id})
             .then((response) => {
+                fs.unlinkSync(path.resolve(`./uploads/${response.thumbnail}`)) 
                 res.send({message: "Succesfully delete articles"})
             }).catch((err) => {
                 res.send({message: "Failed to delete", err})
             })
+       
     } catch (error) {
         console.log(error);
     }

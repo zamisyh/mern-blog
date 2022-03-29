@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, {useState} from 'react'
 import { get } from '../../helpers/localStorage'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const ListArticleTable = ({articles}) => {
     const token = get('token')
@@ -59,7 +60,7 @@ const ListArticleTable = ({articles}) => {
                             <img width='150' height='150' src={`${process.env.REACT_APP_MAIN_API_URL}/uploads/${article.thumbnail}`}  alt="" />
                         </td>
                         <td className="px-6 py-4">
-                            {article.title}
+                            <Link key={index} to={`/article/${article.name}`}>{article.title}</Link>
                         </td>
                         <td className="px-6 py-4">
                             {article.content.substring(0, 25)} ... 
