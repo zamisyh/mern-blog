@@ -28,8 +28,10 @@ connect();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 app.use(express.static(path.join(__dirname)))
+app.use(cors({
+    origin: '*'
+}));
 
 
 app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle, uploadSingle);

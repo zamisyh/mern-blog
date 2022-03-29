@@ -13,6 +13,7 @@ const AddArticle = () => {
 
   const [ images, setImages ] = useState([]); 
   const [ loading, setLoading ] = useState(false)
+  const [ fileName, setFileName ] = useState('');
   const token = get('token')
   
   const validationSchema = yup.object({
@@ -31,16 +32,28 @@ const AddArticle = () => {
 
   const onSubmit = async (values) => {
     setLoading(true)
-    const { ...data } = values;
-    data.thumbnail =  Date.now() + '-' + Math.round(Math.random() * 1E9) + '-' + images[0].file.name
+    const { ...data } = values; 
+    const formData = new FormData();
+    formData.append('image', images[0].file)
+
+    await axios.post(`${process.env.REACT_APP_API_URL}/articles/uploads`, formData, {
+        headers:{
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then((res) => {
+        data.thumbnail = res.data.filename
+    }).catch((err) => {
+        console.log(err)
+    })
     
+    console.log(data);
+
     await axios.post(`${process.env.REACT_APP_API_URL}/articles/add-article`, data, {
         headers: {
             Authorization: 'Bearer ' + token
         }
     })
         .then((res) => {
-            console.log(res.data)
             setLoading(false);
         }).catch((err) => {
             console.log(err.message)
