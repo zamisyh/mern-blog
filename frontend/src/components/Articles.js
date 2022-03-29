@@ -9,7 +9,7 @@ const Articles = ({articles}) => {
                 <div className="shadow-xl card-compact card bg-base-100">
                     <Link key={index} to={`/article/${article.name}`}>
                         <figure>
-                            <img width='400' height='225' src={`http://localhost:2000/uploads/${article.thumbnail}`}  alt="Shoes" />
+                            <img width='400' height='225' src={`${process.env.REACT_APP_MAIN_API_URL}/uploads/${article.thumbnail}`}  alt="" />
                         </figure>
                     </Link>
                     <div className="card-body">

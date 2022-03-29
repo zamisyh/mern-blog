@@ -56,7 +56,7 @@ const ListArticleTable = ({articles}) => {
                 { articles.map((article, index) => (
                     <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            <img width='150' height='150' src={article.thumbnail}  alt="Shoes" />
+                            <img width='150' height='150' src={`${process.env.REACT_APP_MAIN_API_URL}/uploads/${article.thumbnail}`}  alt="" />
                         </td>
                         <td className="px-6 py-4">
                             {article.title}
