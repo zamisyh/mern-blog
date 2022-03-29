@@ -15,7 +15,8 @@ const AddArticle = () => {
   const [ loading, setLoading ] = useState(false)
   const [ fileName, setFileName ] = useState('');
   const token = get('token')
-  
+  if (token === null) window.location.replace('/auth/login')
+
   const validationSchema = yup.object({
       name: yup.string().required('Name is required'),
       title: yup.string().required('Title is required'),
