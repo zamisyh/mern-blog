@@ -5,6 +5,7 @@ const articles = require('../../models/articles');
 const slug = require('slug')
 const fs = require('fs')
 const path = require('path')
+const asyncHandler = require('express-async-handler')
 
 const getArticle = async (req, res) => {
    try {
@@ -88,15 +89,29 @@ const addArticle = async (req, res) => {
 
 const updateArticle = async (req, res) => {
     try {
-        await articles.findOneAndUpdate({ name: req.params.id }, {
-            name: req.body.name,
+        await articles.findOneAndUpdate({ _id: req.params.id }, {
+            name: slug(req.body.name),
             title: req.body.title,
             thumbnail: req.body.thumbnail,
             content: req.body.content
         }).then((result) => {
+
+            articles.findOne({_id: req.params.id}, (err, data) => {
+                if (data.thumbnail !== result.thumbnail) {
+                   try {
+                        fs.unlinkSync(path.resolve(`./uploads/${result.thumbnail}`)) 
+                   } catch (error) {
+                        console.log(error)
+                   }
+                }else{
+                    console.log('null')
+                }
+            })
+
             res.status(200).json({
                 status: 200,
                 message: "Succesfully update article",
+                data: result
             })
         }).catch((err) => {
             res.status(401).json({
