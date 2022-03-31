@@ -38,6 +38,22 @@ const getArticleByName = async (req, res) => {
     }
 }
 
+const getArticleById = async (req, res) => {
+    try {
+        await articles.findOne({_id: req.params.id})
+            .then((result) => {
+                res.status(200).json(result)
+            }).catch((err) => {
+                res.status(404).json({
+                    status: 404,
+                    message: "Invalid params id"
+                })
+            })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const otherArticle = async (req, res) => {
     await articles.find().sort({'_id': -1}).limit(2)
     .then((result) => {
@@ -72,7 +88,7 @@ const addArticle = async (req, res) => {
 
 const updateArticle = async (req, res) => {
     try {
-        await articles.findOneAndUpdate({ name: req.params.name }, {
+        await articles.findOneAndUpdate({ name: req.params.id }, {
             name: req.body.name,
             title: req.body.title,
             thumbnail: req.body.thumbnail,
@@ -109,4 +125,4 @@ const deleteArticle = async (req, res) => {
 }
 
 
-module.exports = { getArticle, getArticleByName, addArticle, updateArticle, otherArticle , deleteArticle};
+module.exports = { getArticle, getArticleByName, addArticle, updateArticle, otherArticle , deleteArticle, getArticleById};

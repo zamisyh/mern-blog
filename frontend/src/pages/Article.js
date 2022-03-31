@@ -7,7 +7,6 @@ import {getArticleByName, getOtherArticles } from '../api/controllers/blog'
 const Article = () => {
     let {name} = useParams();
    
-
     const {data: articleByName, error} = useSWR(`${process.env.REACT_APP_API_URL}/articles/${name}`, getArticleByName)
     const {data: otherArticles} = useSWR(`${process.env.REACT_APP_API_URL}/other-articles`, getOtherArticles);
 

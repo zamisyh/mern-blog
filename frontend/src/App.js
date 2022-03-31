@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import AddArticle from "./pages/admin/AddArticle";
+import UpdateArticle from "./pages/admin/UpdateArticle";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route exact path='/auth/register' element={<Register/>}></Route>
           <Route exact path='/dashboard' element={<Dashboard/>}></Route>
           <Route exact path='/dashboard/add-article' element={<AddArticle/>}></Route>
+          <Route exact path='/dashboard/articles/:id' element={<UpdateArticle/>}></Route>
         </Routes>
       </div>
     </BrowserRouter>

@@ -15,6 +15,7 @@ const updateArticle = require('./routers/articles');
 const otherArticle = require('./routers/articles');
 const deleteArticle = require('./routers/articles')
 const uploadSingle = require('./routers/articles')
+const getArticleById = require('./routers/articles')
 
 //model user
 const userRegister = require('./routers/user');
@@ -34,7 +35,7 @@ app.use(cors({
 }));
 
 
-app.use('/api', getArticle, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle, uploadSingle);
+app.use('/api', getArticle, getArticleById, getArticleByName, addArticle, updateArticle, otherArticle, deleteArticle, uploadSingle);
 app.use('/api', userRegister, userFindAll, userFindById, userGetMe);
 
 
