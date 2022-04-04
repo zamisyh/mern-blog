@@ -5,9 +5,13 @@ import * as yup from 'yup'
 import { useFormik  } from 'formik'
 import ImageUploading from 'react-images-uploading'
 import { unSlug } from '../../helpers/unSlug';
+import { get } from '../../helpers/localStorage'
 
 const UpdateArticle = () => {
   let { id } = useParams();
+  const token = get('token')
+  if (token === null) window.location.replace('/auth/login')
+
   const [ success, setSuccess ] = useState('')
   const [ loading, setLoading ] = useState(false)
   const [ data, setData ] = useState(null)
@@ -38,9 +42,47 @@ const UpdateArticle = () => {
   }, [])
 
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     const { ...val } = values;
-    console.log(JSON.stringify(val))
+
+    if (images.length > 0) {
+        const formData = new FormData()
+        formData.append('image', images[0].file)
+
+        await axios.post(`${process.env.REACT_APP_API_URL}/articles/uploads`, formData, {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then((res) => {
+            val.thumbnail = res.data.filename
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    await axios.put(`${process.env.REACT_APP_API_URL}/articles/${id}/update`, val, {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then((res) => {
+            setSuccess('Succesfully create article')
+            setTimeout(() => {
+                window.location.replace('/dashboard')
+                setSuccess('')
+            }, 2000);
+            setLoading(false);
+            console.log(res)
+        }).catch((err) => {
+            console.log(err.message)
+           setLoading(false)
+        })
+
+
+    
+
+
+
   }
 
   const formik = useFormik({
@@ -146,7 +188,7 @@ const UpdateArticle = () => {
                             </div> }
                         </span>
 
-                       { imageList.length > 0 ? '' : <img src={`${process.env.REACT_APP_MAIN_API_URL}/uploads/${data.thumbnail}`} /> }
+                       {/* { imageList.length > 0 ? '' : <img src={`${process.env.REACT_APP_MAIN_API_URL}/uploads/${data.thumbnail}`} /> } */}
                     
                         {imageList.map((image, index) => (
                         <div key={index}>
